@@ -1,5 +1,5 @@
 # UNEP Information Technology Section Assessment using laravel.
-## Note: Make sure you have git and laravel installed locally on your computer first.
+## Note: Make sure you have git, composer and laravel installed locally on your computer first.
 open a folder with an IDE of your choice and run the following:
 
 ## 1. Clone GitHub repo for this project locally
