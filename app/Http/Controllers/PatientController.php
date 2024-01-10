@@ -2,22 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Patient;
+use Illuminate\Http\Request;
 
-class ReceptionController extends Controller
+class PatientController extends Controller
+
 {
-    // Display a listing of patients
-    public function index()
+    public function __construct()
     {
-        $patients = Patient::paginate(10); // 10 patients per page by default
-        return view('reception.index', compact('patients'));
+        $this->middleware('auth'); // Apply 'auth' middleware to all methods in this controller
+    }
+    public function index(Request $request)
+    {
+        $perPage = $request->input('perPage', 10); // Get the selected number of rows or default to 10
+
+        // Fetch unique patient names
+        $names = Patient::pluck('name')->unique();
+
+        $patients = Patient::paginate($perPage);
+
+        return view('patient.index', compact('patients', 'names'));
     }
 
+    
+
+ 
     // Show the form for creating a new patient
     public function create()
     {
-        return view('reception.create');
+        return view('patient.create');
     }
 
     // Store a newly created patient in the database
@@ -28,20 +41,22 @@ class ReceptionController extends Controller
             'name' => 'required|string|max:255',
             'dob' => 'required|date',
             'phone' => 'required|string|max:20',
+            'medical_history' => 'sometimes|nullable|string', 
+            'patient_case' => 'sometimes|nullable|string', 
             // Add more fields as needed
         ]);
 
         // Create a new patient with the validated data
         Patient::create($validatedData);
 
-        return redirect()->route('reception.index')->with('success', 'Patient added successfully');
+        return redirect()->route('patient.index')->with('success', 'Patient added successfully');
     }
 
     // Show the form for editing a patient
     public function edit($id)
     {
         $patient = Patient::findOrFail($id);
-        return view('reception.edit', compact('patient'));
+        return view('patient.edit', compact('patient'));
     }
 
     // Update the specified patient in the database
@@ -51,13 +66,15 @@ class ReceptionController extends Controller
             'name' => 'required|string|max:255',
             'dob' => 'required|date',
             'phone' => 'required|string|max:20',
+            'medical_history' => 'sometimes|nullable|string', 
+            'patient_case' => 'sometimes|nullable|string',
             // Add more fields as needed
         ]);
 
         $patient = Patient::findOrFail($id);
         $patient->update($validatedData);
 
-        return redirect()->route('reception.index')->with('success', 'Patient updated successfully');
+        return redirect()->route('patient.index')->with('success', 'Patient updated successfully');
     }
 
     // Remove the specified patient from the database
@@ -66,13 +83,13 @@ class ReceptionController extends Controller
         $patient = Patient::findOrFail($id);
         $patient->delete();
 
-        return redirect()->route('reception.index')->with('success', 'Patient deleted successfully');
+        return redirect()->route('patient.index')->with('success', 'Patient deleted successfully');
     }
          // Show the details of a specific patient
     public function show($id)
     {
         $patient = Patient::findOrFail($id);
-        return view('reception.view', compact('patient'));
+        return view('patient.view', compact('patient'));
     }
-
+    
 }

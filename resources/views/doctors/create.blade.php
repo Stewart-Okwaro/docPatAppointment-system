@@ -5,7 +5,7 @@
 <div class="container">
     <h2>Add New Doctor</h2>
 
-    <form action="{{ route('doctor.store') }}" method="POST">
+    <form action="{{ route('doctors.store') }}" method="POST">
         @csrf
 
         <div class="form-group">

@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
+            $table->string('name'); // Add the 'name' column
+            $table->string('specialization'); // Add the 'specialization' column
             $table->timestamps();
         });
     }
@@ -29,3 +31,4 @@ return new class extends Migration
         Schema::dropIfExists('doctors');
     }
 };
+

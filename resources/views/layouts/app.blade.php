@@ -6,6 +6,10 @@
     <title>Appointment System</title>
     <!-- Add any additional head elements, stylesheets, or scripts here -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Include DataTables CSS and JS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
 </head>
 <body>
 
@@ -17,15 +21,24 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="{{ route('reception.index') }}">Patients</a>
+                <a class="nav-link" href="{{ route('patient.index') }}">Patients</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('doctor.index') }}">Doctors</a>
+                <a class="nav-link" href="{{ route('doctors.index') }}">Doctors</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard.index') }}">Dashboard</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('appointments.index') }}">Appointments</a>
+            </li>
             <!-- Add more navigation links as needed -->
+            <li class="nav-item">
+                <form action="{{ route('auth.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form>
+            </li>
 
         </ul>
     </div>
