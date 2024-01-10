@@ -41,3 +41,10 @@ For the email address you can use:
 Reception@appointment.com  
 password: 1234567
 ### 9.You can also register new users
+### 10. For API endpoints you can use the following:
+api/v1/appointments,
+api/v1/doctors,
+api/v1/patients
+
+
+
